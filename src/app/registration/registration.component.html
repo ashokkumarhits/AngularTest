@@ -1,0 +1,145 @@
+
+
+<style>
+    table,th,td{
+        border: 2px solid black;padding: 20px;
+    }
+</style>
+<h2 style="color: rgb(250, 7, 120); text-align: center;">Registration</h2>
+<div class="row">
+    <div class="col-6 offset-3">
+        <button type="button" class="btn btn-outline-primary btn-lg mt-5 ml-5" (click)="get_api()">GET</button>
+        <button type="button" class="btn btn-outline-success btn-lg mt-5 ml-5" (click)="btn_post()">CREATE</button>
+        <button type="button" class="btn btn-outline-dark btn-lg mt-5 ml-5" (click)="btn_put()">EDIT</button>
+        <button type="button" class="btn btn-outline-warning btn-lg mt-5 ml-5" (click)="btn_delete()">DELETE</button>     
+        <!-- <button type="button" class="btn btn-outline-danger btn-lg mt-5 ml-5" (click)="error_api()">REGISTER</button>    -->
+    </div>
+</div>
+<div class="row mt-5" *ngIf="flag_get">
+    <div class="col-6 offset-3">
+        <!-- <div class="card">
+            <div class="card-body"> -->
+                <div class=" card bg-light text-white" style=" border-radius:1rem;width: fit-content;">
+                    <div class="card-body p-5 text-center">
+                <table style="background-color:white;border:5px solid gold;background:border-box;color:black" class="table">
+                    <thead>
+                        <tr>
+                            <th>  ID</th>
+                            <th> FIRSTNAME </th>
+                            <th> LASTNAME</th>
+                            <th> NUMBER OF CREDITS</th>
+                            <th> COURSE</th>
+                            <th> BATCH</th>
+                            <th> TELEPHONE NUMBER</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of reg">
+                            <td>{{item.id}}</td>
+                            <td>{{item.firstname}}</td>
+                            <td>{{item.lastname}}</td>
+                            <td>{{item.nic}}</td>
+                            <td>{{item.courseId}}</td>
+                            <td>{{item.batchId}}</td>
+                            <td>{{item.telno}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5" *ngIf="flag_post">
+    <div class="col-6 offset-3">
+        <form #regForm="ngForm" (ngSubmit)="post_api(regForm.value)">
+            <div class="form-group">
+                <label for="registration">FIRSTNAME</label>
+                <input type="text" class="form-control" id="firstname" name="firstname" [(ngModel)]="registrations.firstname" required>
+            </div>
+            <div class="form-group">
+                <label for="registration">LASTNAME</label>
+                <input type="text" class="form-control" id="lastname" name="lastname" [(ngModel)]="registrations.lastname"required>
+            </div>
+            <div class="form-group">
+                <label for="registration">NUMBER OF CREDITS</label>
+                <input type="text" class="form-control" id="nic" name="nic" [(ngModel)]="registrations.nic" required>
+            </div>
+            <div class="form-group">
+                <label for="registration">COURSE</label>
+                <select class="form-control" id="courseId" name="courseId" (ngModelChange)="selectchange1($event)" [(ngModel)]="registrations.courseId" required>
+                <option *ngFor="let falue of foreignKeyValues1" [ngValue]="falue.id">{{ falue.course1}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="registration">BATCH</label>
+                <select  class="form-control" id="batchId" name="batchId"(ngModelChange)="selectchange($event)" [(ngModel)]="registrations.batchId" required>
+                    <!-- <option [value]="registrations.batchId">-- Select a value --</option> -->
+                    <option *ngFor="let falue of foreignKeyValues" [ngValue]="falue.id">{{ falue.batch1}}</option>
+                  </select>
+            </div>
+            <!-- <select [(ngModel)]="selectedForeignKeyValue">
+                <option value="">-- Select a value --</option>
+                <option *ngFor="let value of foreignKeyValues" [value]="value.id">{{ value.batch1 }}</option>
+              </select> -->
+            <div class="form-group">
+                <label for="registration">TELEPHONE NUMBER</label>
+                <input type="text" class="form-control" id="telno" name="telno" [(ngModel)]="registrations.telno" required>
+            </div>
+            <input type="submit" class="btn btn-outline-danger" [disabled]="!regForm.valid" value="Submit">
+            <input type="reset" class="btn btn-outline-dark" style="float: right;" value="Clear">
+        </form>
+        <div class="alert alert-info mt-2" *ngIf="msg">{{msg}}</div>
+    </div>
+</div>
+
+ <div class="row mt-5" *ngIf="flag_put">
+    <div class="col-6 offset-3">
+        <div class="form-group">
+            <label for="u_id">Edit course</label>
+            <input type="text" class="form-control" id="u_id" [(ngModel)]="update_id">
+
+        </div>
+        <form #regForm="ngForm" (ngSubmit)="put_api(update_id,regForm.value)">
+            <div class="form-group">
+                <label for="registration">FIRSTNAME</label>
+                <input type="text" class="form-control" id="firstname" name="firstname" [(ngModel)]="registrations.firstname" required>
+            </div>
+            <div class="form-group">
+                <label for="registration">LASTNAME</label>
+                <input type="text" class="form-control" id="lastname" name="lastname" [(ngModel)]="registrations.lastname"required>
+            </div>
+            <div class="form-group">
+                <label for="registration">NUMBER OF CREDITS</label>
+                <input type="text" class="form-control" id="nic" name="nic" [(ngModel)]="registrations.nic" required>
+            </div>
+            <div class="form-group">
+                <label for="registration">COURSE</label>
+                <input type="text" class="form-control" id="courseId" name="courseId" [(ngModel)]="registrations.courseId" required>
+            </div>
+            <div class="form-group">
+                <label for="registration">BATCH</label>
+                <input type="text" class="form-control" id="batchId" name="BatchId" [(ngModel)]="registrations.batchId" required>
+            </div>
+            <div class="form-group">
+                <label for="registration">TELEPHONE NUMBER</label>
+                <input type="text" class="form-control" id="telno" name="telno" [(ngModel)]="registrations.telno" required>
+            </div>
+            <input type="submit" class="btn btn-outline-danger" [disabled]="!regForm.valid" value="Submit">
+            <input type="reset" class="btn btn-outline-dark" style="float: right;" value="Clear">
+        </form>
+        <div class="alert alert-info mt-2" *ngIf="msg">{{msg}}</div>
+    </div>
+</div>
+
+
+<div class="row mt-5" *ngIf="flag_delete">
+    <div class="col-6 offset-3">
+        <div class="form-group">
+            <label for="d_id">enter the ID of the registrationto be deleted</label>
+            <input type="text" class="form-control" id="d_id" [(ngModel)]="update_id">
+        </div>
+        <button type="button" class="btn btn-outline-dark text-center" (click)="delete_api(update_id)">Remove</button>
+        <div class="alert alert-info mt-2" *ngIf="d_msg">{{d_msg}}</div> 
+    </div>
+</div>

@@ -1,0 +1,60 @@
+<!-- <form [formGroup]="userform" (ngSubmit)="login()">
+    <div>
+        <label for="username">USERNAME</label>
+        <input id="username" type="text" placeholder="Enter username" formControlName="username">
+        <span></span>
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input id="password" type="password" placeholder="Enter Password" formControlName="password">
+    </div>
+    <button type="submit" [disabled]="!userform.valid" class="btn btn-outline-primary btn-lg mt-5 ml-5" >Sign in</button>
+
+</form> -->
+
+
+
+
+
+<style>
+    .make-flex{
+        display:flex;
+        flex-direction:row;
+        justify-content:space-between;
+    }
+</style>
+
+<!DOCTYPE html>
+<h1 style="color: black">Login Credentials</h1>
+
+<h4>Manager</h4>
+<!-- <body style="background-image:url(https://cdn.wallpapersafari.com/5/73/oHC9by.jpg);background-blend-mode:multiply;background-repeat:no-repeat;background-size:cover"> -->
+
+
+
+<div class="make-flex">
+    <div class="col-md-4">
+        <form [formGroup]="userform" (ngSubmit)="login()">
+            <h5 style="color: red;">{{errormsg}}</h5>
+
+            <div style="color: black;">
+                <label for="username">USERNAME  :</label>
+                <input id="username" type="text" placeholder="Enter username" formControlName="username">
+               
+                <!-- <span></span> -->
+                <!-- <input class="errormsg"> -->
+            </div>
+            <div style="color: black">
+                <label for="password">PASSWORD  :</label>
+                <input id="password" type="password" placeholder="Enter Password" formControlName="password">
+            </div>
+            <button type="submit" [disabled]="!userform.valid" class="btn btn-outline-primary btn-lg mt-5 ml-5" >Sign in</button>
+            
+        </form>
+    </div>
+    <div>
+        <img src="https://campusstellar.com/assets/upload/a821b83a07ebf9536f6693f1d588a32f.jpeg" height="500" width="900" style="margin-right: 300px;">
+    </div>
+</div>
+
+

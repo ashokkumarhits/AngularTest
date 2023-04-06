@@ -1,0 +1,99 @@
+<style>
+    table,th,td{
+        border: 2px solid black;padding: 20px;
+    }
+</style>
+<h2 style="color: rgb(250, 7, 120); text-align: center;">Batch</h2>
+<div class="row">
+    <div class="col-6 offset-3">
+        <button type="button" class="btn btn-outline-primary btn-lg mt-5 ml-5" (click)="get_api()">GET</button>
+        <button type="button" class="btn btn-outline-success btn-lg mt-5 ml-5" (click)="btn_post()">CREATE</button>
+        <button type="button" class="btn btn-outline-dark btn-lg mt-5 ml-5" (click)="btn_put()">EDIT</button>
+        <button type="button" class="btn btn-outline-warning btn-lg mt-5 ml-5" (click)="btn_delete()">DELETE</button>     
+        <!-- <button type="button" class="btn btn-outline-danger btn-lg mt-5 ml-5" (click)="error_api()">REGISTER</button>    -->
+    </div>
+</div>
+<div class="row mt-5" *ngIf="flag_get">
+    <div class="col-6 offset-3">
+        <!-- <div class="card">
+            <div class="card-body"> -->
+                <div class=" card bg-light text-white" style=" border-radius:1rem">
+                    <div class="card-body p-5 text-center">
+                <table style="background-color:white;border:5px solid gold;background:border-box;color:black" class="table">
+                    <thead>
+                        <tr>
+                            <th>  ID</th>
+                            <th> Batch</th>
+                            <th> Year</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of batch">
+                            <td>{{item.id}}</td>
+                            <td>{{item.batch1}}</td>
+                            <td>{{item.year}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5" *ngIf="flag_post">
+    <div class="col-6 offset-3">
+        <form #courseForm="ngForm" (ngSubmit)="post_api(courseForm.value)">
+            <div class="form-group">
+                <label for="batch">batch</label>
+                <input type="text" class="form-control" id="batch1" name="batch1" [(ngModel)]="batchdetails.batch1" required>
+            </div>
+            <div class="form-group">
+                <label for="year">Year</label>
+                <input type="text" class="form-control" id="year" name="year" [(ngModel)]="batchdetails.year" required>
+            </div>
+            <input type="submit" class="btn btn-outline-danger" [disabled]="!courseForm.valid" value="Submit">
+            <input type="reset" class="btn btn-outline-dark" style="float: right;" value="Clear">
+        </form>
+        <div class="alert alert-info mt-2" *ngIf="msg">{{msg}}</div>
+    </div>
+</div>
+
+<div class="row mt-5" *ngIf="flag_put">
+    <div class="col-6 offset-3">
+        <div class="form-group">
+            <label for="u_id">Edit batch</label>
+            <input type="text" class="form-control" id="u_id" [(ngModel)]="update_id">
+
+        </div>
+        <form #courseForm="ngForm" (ngSubmit)="put_api(update_id,courseForm.value)">
+
+            <div class="form-group">
+                <label for="batch">batch</label>
+                <input type="text" class="form-control" id="batch1" name="batch1" [(ngModel)]="batchdetails.batch1" required>
+            </div>
+            <div class="form-group">
+                <label for="year">Year</label>
+                <input type="text" class="form-control" id="year" name="year" [(ngModel)]="batchdetails.year" required>
+            </div>
+            <input type="submit" class="btn btn-outline-danger" [disabled]="!courseForm.valid" value="Submit">
+            <input type="reset" class="btn btn-outline-dark" style="float: right;" value="Clear">
+        </form>
+        <div class="alert alert-info mt-2" *ngIf="u_msg">{{u_msg}}</div>
+    </div>
+</div>
+
+<div class="row mt-5" *ngIf="flag_delete">
+    <div class="col-6 offset-3">
+        <div class="form-group">
+            <label for="d_id">enter the ID of the batch to be deleted</label>
+            <input type="text" class="form-control" id="d_id" [(ngModel)]="update_id">
+        </div>
+        <button type="button" class="btn btn-outline-dark text-center" (click)="delete_api(update_id)">Remove</button>
+        <div style="color:red"class="alert alert-info mt-2" *ngIf="d_msg">{{d_msg}}</div> 
+        <div style="color:red"class="alert alert-info mt-2" *ngIf="e_msg != null">{{e_msg}}</div> 
+
+        
+       
+    </div>
+</div>
+
